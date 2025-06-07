@@ -1,4 +1,4 @@
-package com.example.select_sports
+package com.selectsports.select_sports
 
 import io.flutter.embedding.android.FlutterActivity
 

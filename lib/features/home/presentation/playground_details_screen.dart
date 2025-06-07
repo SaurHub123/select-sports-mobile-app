@@ -246,8 +246,9 @@ class _PlaygroundDetailsScreenState
                         Booking userBooking = homeState.slotDetail!.bookings
                             .firstWhere((e) =>
                                 e.userId ==
-                                SharedPreferencesHelper.get(
-                                    SharedPreferencesKeys.userId) && e.status == "CONFIRMED");
+                                    SharedPreferencesHelper.get(
+                                        SharedPreferencesKeys.userId) &&
+                                e.status == "CONFIRMED");
 
                         print(userBooking.status);
                         if (userBooking.status == "CANCELLED") {

@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/widgets/common_bottom_sheet.dart';
+import 'package:select_sports/features/bookings/presentation/bookings_screen.dart';
 import 'package:select_sports/features/home/presentation/home_controller.dart';
 import 'package:gradient_slide_to_act/gradient_slide_to_act.dart';
 import 'package:select_sports/features/home/presentation/razorpay_controller.dart';
+import 'package:select_sports/features/main/presentation/main_controller.dart';
+import 'package:select_sports/providers/navigator_key.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 void paymentBottomSheet(
   BuildContext context,
@@ -68,6 +72,22 @@ void paymentBottomSheet(
               //     ],
               //   ),
               // ),
+              AnimatedTextKit(
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    'Slide to pay',
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    speed: Duration(milliseconds: 100),
+                  ),
+                ],
+                repeatForever: true,
+                pause: Duration(milliseconds: 500),
+                isRepeatingAnimation: true,
+              ),
               SizedBox(height: 4.h),
               GradientSlideToAct(
                 dragableIcon: Icons.credit_card,
@@ -81,8 +101,9 @@ void paymentBottomSheet(
                   var a = await homeController.initiatePayment(slotId, false);
                   print(a);
 
-                   final razorpayController = ref.read(razorpayControllerProvider);
-                    razorpayController.openCheckout(a,slotId,false);
+                  final razorpayController =
+                      ref.read(razorpayControllerProvider);
+                  razorpayController.openCheckout(a, slotId, false);
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -113,12 +134,21 @@ void paymentBottomSheet(
                 submittedIcon: Icons.done,
                 textStyle: TextStyle(color: Colors.white, fontSize: 15),
                 backgroundColor: Colors.grey,
-                onSubmit: () async{
+                onSubmit: () async {
                   var a = await homeController.initiatePayment(slotId, true);
                   print(a);
 
-                   final razorpayController = ref.read(razorpayControllerProvider);
-                    razorpayController.openCheckout(a,slotId,true);
+                  final razorpayController =
+                      ref.read(razorpayControllerProvider);
+                  razorpayController.openCheckout(a, slotId, true);
+
+                  final mainController =
+                      ref.read(mainControllerProvider.notifier);
+                  mainController.updateIndex(4); // Update to the 4th index
+                  Navigator.pushReplacement(
+                    ref.read(navigatorKeyProvider).currentContext!,
+                    MaterialPageRoute(builder: (context) => BookingsScreen()),
+                  );
                 },
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
