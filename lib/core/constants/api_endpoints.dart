@@ -1,6 +1,6 @@
 class ApiEndpoints {
-  // static const String baseUrl = "http://localhost:3005/api";
-  static const String baseUrl = "http://3.6.39.216/api";
+  static const String baseUrl = "http://localhost:3005/api";
+  // static const String baseUrl = "http://3.6.39.216/api";
 
   // Auth Endpoints
   static const String login = "/auth/login";
@@ -17,4 +17,5 @@ class ApiEndpoints {
   static const String initiatePayment = "/razorpay-transactions/initiate";
   static const String verifyPayment = "/razorpay-transactions/verify";
   static const String wallet = "/user/wallet";
+  static const String host = "/host";
 }

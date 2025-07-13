@@ -16,6 +16,7 @@ class CustomTextFields {
     bool enabled = true,
     required WidgetRef ref,
     Function()? onClick,
+    int? maxLength,
   }) {
     FocusNode fieldFocus = FocusNode();
     bool hasError = false;
@@ -44,6 +45,7 @@ class CustomTextFields {
               return result;
             },
             maxLines: maxLines,
+            maxLength: maxLength,
             cursorColor: isDarkMode
                 ? AppColors.inputFilledBackground
                 : AppColors.darkGreenColor,

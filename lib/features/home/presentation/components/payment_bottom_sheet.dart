@@ -92,10 +92,13 @@ void paymentBottomSheet(
               GradientSlideToAct(
                 dragableIcon: Icons.credit_card,
                 submittedIcon: Icons.done,
-                text: 'Pay using Card / UPI / Net Banking',
+                text: 'Pay using Card / UPI / Online',
                 width: 70.0.w,
                 dragableIconBackgroundColor: Colors.greenAccent,
-                textStyle: TextStyle(color: Colors.white, fontSize: 15),
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13.sp,
+                ),
                 backgroundColor: Colors.grey,
                 onSubmit: () async {
                   var a = await homeController.initiatePayment(slotId, false);
@@ -124,6 +127,7 @@ void paymentBottomSheet(
                     Color(0Xff38EF7D),
                   ],
                 ),
+                iconSize: 12.sp,
               ),
               SizedBox(height: 4.h),
               GradientSlideToAct(
@@ -132,7 +136,11 @@ void paymentBottomSheet(
                 width: 70.w,
                 dragableIconBackgroundColor: Colors.greenAccent,
                 submittedIcon: Icons.done,
-                textStyle: TextStyle(color: Colors.white, fontSize: 15),
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13.sp,
+                ),
+                iconSize: 12.sp,
                 backgroundColor: Colors.grey,
                 onSubmit: () async {
                   var a = await homeController.initiatePayment(slotId, true);

@@ -20,9 +20,9 @@ class ProfileController extends StateNotifier<ProfileState> {
   ProfileController(this.profileRepository)
       : super(
           ProfileState(
-            preferredPosition: '',
-            experienceLevel: '',
-            preferredFoot: '',
+            preferredPosition: null,
+            experienceLevel: null,
+            preferredFoot: null,
             totalMatches: 0,
             winnings: 0,
             draws: 0,
@@ -184,9 +184,9 @@ class ProfileState {
   final bool isUpdateProcessRunning;
   final String gender;
   final String state;
-  final String preferredPosition;
-  final String experienceLevel;
-  final String preferredFoot;
+  final String? preferredPosition;
+  final String? experienceLevel;
+  final String? preferredFoot;
   final int totalMatches;
   final int winnings;
   final int draws;

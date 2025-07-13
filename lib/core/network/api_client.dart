@@ -9,10 +9,11 @@ class ApiClient {
   ApiClient({required String baseUrl})
       : _baseUrl = baseUrl,
         _dio = Dio(BaseOptions(
-  validateStatus: (status) {
-    return status! < 500; // Allow handling status codes less than 500, including 402
-  },
-)) {
+          validateStatus: (status) {
+            return status! <
+                500; // Allow handling status codes less than 500, including 402
+          },
+        )) {
     _dio.options.baseUrl = _baseUrl;
     _dio.options.headers = {'Content-Type': 'application/json'};
   }

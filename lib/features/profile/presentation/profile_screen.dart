@@ -355,8 +355,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               SizedBox(width: 5.w),
               Text(
                 title.toUpperCase(),
-                style: AppTextStyles.subheading
-                    .copyWith(color: AppColors.lightText),
+                style: AppTextStyles.subheading.copyWith(
+                  color: AppColors.lightText,
+                  fontSize: 16.sp,
+                ),
               ),
             ],
           ),
@@ -370,14 +372,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     )
                   : SizedBox(),
               SizedBox(width: 1.w),
-              Text(
-                totalValue.toString(),
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.lightText,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              isTotal
+                  ? Text(
+                      totalValue.toString(),
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.lightText,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : SizedBox(),
               SizedBox(width: 2.5.w),
             ],
           ),
@@ -389,7 +393,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget _buildActionsWithDropdown(
     String icon,
     String title,
-    String selectedValue,
+    String? selectedValue,
     List<String> options,
     ValueChanged<String?> onChanged,
   ) {
@@ -403,8 +407,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         color: AppColors.darkGreyColor,
         borderRadius: BorderRadius.circular(2.5.w),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
@@ -426,21 +430,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               SizedBox(width: 5.w),
               Text(
                 title.toUpperCase(),
-                style: AppTextStyles.subheading
-                    .copyWith(color: AppColors.lightText),
+                style: AppTextStyles.subheading.copyWith(
+                  color: AppColors.lightText,
+                  fontSize: 16.sp,
+                ),
               ),
             ],
           ),
-          Row(
-            children: [
-              CommonDropdown(
-                items: options,
-                selectedValue: selectedValue,
-                onChanged: onChanged,
-              ),
-              SizedBox(width: 2.5.w),
-            ],
+          SizedBox(height: 1.5.h),
+          CommonDropdown(
+            items: options,
+            selectedValue: selectedValue,
+            onChanged: onChanged,
           ),
+          SizedBox(width: 2.5.w),
         ],
       ),
     );

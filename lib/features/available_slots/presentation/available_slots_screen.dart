@@ -311,7 +311,7 @@ class _AvailableSlotsScreenState extends ConsumerState<AvailableSlotsScreen> {
                     _buildChips(
                       isDarkMode,
                       Paths.homeFootballPlayerIcon,
-                      "$slotsLeft Slots left",
+                      "${calculateSlotsLeft(maxPlayer, slotsLeft)} Slots left",
                     ),
                   ],
                 )
@@ -322,6 +322,17 @@ class _AvailableSlotsScreenState extends ConsumerState<AvailableSlotsScreen> {
       ),
     );
   }
+
+  int calculateSlotsLeft(int maxPlayer, int bookings) {
+    if (bookings >= maxPlayer) {
+      return 0;
+    } else if (bookings < (maxPlayer / 2)) {
+      return (maxPlayer / 2).ceil();
+    } else {
+      return maxPlayer - bookings;
+    }
+  }
+
 
   Widget _buildChips(bool isDarkMode, String icon, String action) {
     return Container(
