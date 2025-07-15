@@ -7,6 +7,8 @@ import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/widgets/common_appbar.dart';
 import 'package:select_sports/core/widgets/visibility_widgets.dart';
 import 'package:select_sports/providers/theme_provider.dart';
+import 'package:select_sports/core/models/notification_model.dart';
+import 'notifications_controller.dart';
 
 class NotificationsScreen extends ConsumerStatefulWidget {
   const NotificationsScreen({super.key});
@@ -21,6 +23,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
   Widget build(BuildContext context) {
     // Check if the current theme mode is dark
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
+    final notificationsAsync = ref.watch(notificationsControllerProvider);
 
     return Scaffold(
       body: Container(
@@ -36,17 +39,48 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
                 isDarkMode,
                 "Notifications",
               ),
-              for (var i = 0; i <= 3; i++)
-                Column(
-                  children: [
-                    _buildNotificationTile(
-                      isDarkMode,
-                      "Booking Successful",
-                      "Your booking for Football at Crescent Ground at 10:00 AM is successfully booked.!",
+              notificationsAsync.when(
+                data: (notifications) => notifications.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(top: 10.w),
+                        child: Text(
+                          "No notifications found.",
+                          style: AppTextStyles.body.copyWith(
+                            color: isDarkMode
+                                ? AppColors.lightText
+                                : AppColors.darkText,
+                          ),
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          for (final notification in notifications)
+                            Column(
+                              children: [
+                                _buildNotificationTile(
+                                  isDarkMode,
+                                  notification.title,
+                                  notification.message,
+                                ),
+                                SizedBox(height: 2.5.w),
+                              ],
+                            ),
+                        ],
+                      ),
+                loading: () => Padding(
+                  padding: EdgeInsets.only(top: 10.w),
+                  child: const CircularProgressIndicator(),
+                ),
+                error: (e, st) => Padding(
+                  padding: EdgeInsets.only(top: 10.w),
+                  child: Text(
+                    "Failed to load notifications.",
+                    style: AppTextStyles.body.copyWith(
+                      color: Colors.red,
                     ),
-                    SizedBox(height: 2.5.w),
-                  ],
-                )
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -55,7 +89,10 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
   }
 
   Widget _buildNotificationTile(
-      bool isDarkMode, String title, String description) {
+    bool isDarkMode,
+    String title,
+    String description,
+  ) {
     return Container(
       height: 100,
       width: 100.w,

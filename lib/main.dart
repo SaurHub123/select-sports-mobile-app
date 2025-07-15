@@ -69,6 +69,11 @@ class MyApp extends ConsumerWidget {
             bottomSheetTheme: BottomSheetThemeData(
               dragHandleColor: Colors.pink,
             ),
+            colorScheme: ColorScheme.light(
+              primary: AppColors.lightGreenColor,
+              surface: Colors.white,
+              onSurface: Colors.black,
+            ),
           ),
           darkTheme: ThemeData.dark().copyWith(
             primaryColor: AppColors.darkGreenColor,
@@ -77,6 +82,11 @@ class MyApp extends ConsumerWidget {
                 GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
             bottomSheetTheme: BottomSheetThemeData(
               dragHandleColor: Colors.pink,
+            ),
+            colorScheme: ColorScheme.dark(
+              primary: AppColors.darkGreenColor,
+              surface: AppColors.darkScaffoldBackground,
+              onSurface: Colors.white,
             ),
           ),
           themeMode: themeMode,

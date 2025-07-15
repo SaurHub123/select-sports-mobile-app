@@ -77,7 +77,36 @@ class AuthRepository {
         return {
           'success': true,
           'data': response.data['data'],
-          'message': "Login Successful",
+          'message': response.data["message"],
+        };
+      }
+
+      return {'success': false, 'message': message};
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data["error"]);
+      }
+      return {'success': false, 'message': e.response?.data["message"]};
+    } catch (e) {
+      return {'success': false, 'message': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> updatePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final response =
+          await apiClient.authorizedPatch(ApiEndpoints.updatePassword, {
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      });
+      final message = response.data['message'] ?? "Unexpected response";
+
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'data': response.data['data'],
+          'message': response.data["message"],
         };
       }
 

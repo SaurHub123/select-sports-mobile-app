@@ -189,6 +189,10 @@ class AuthController extends StateNotifier<AuthState> {
         otpController.text.trim(), newPasswordController.text.trim());
   }
 
+  Future<Map<String, dynamic>> updatePassword() {
+    return authRepository.updatePassword(currentPasswordController.text.trim(), newPasswordController.text.trim());
+  }
+
   Future<bool> logout() async {
     await SharedPreferencesHelper.clear();
     // After logging out User must not be redirected to Onboarding Page

@@ -137,7 +137,7 @@ class _ResetScreenState extends ConsumerState<ResetScreen> {
                 child: Column(
                   children: [
                     CustomTextFields.outlinedWithIcon(
-                      controller: authController.passwordController,
+                      controller: authController.currentPasswordController,
                       hintText: "Enter current password",
                       labelText: "Current Password",
                       validator: Validators.validatePassword,
@@ -145,7 +145,7 @@ class _ResetScreenState extends ConsumerState<ResetScreen> {
                       obscureText: !authState.passwordVisible,
                       isPrefix: false,
                       icon: Icon(
-                        authState.newPasswordVisible
+                        authState.passwordVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
                         color: isDarkMode
@@ -153,7 +153,7 @@ class _ResetScreenState extends ConsumerState<ResetScreen> {
                             : AppColors.darkText,
                       ),
                       onIconPressed: () {
-                        authController.toggleNewPasswordVisibility();
+                        authController.togglePasswordVisibility();
                       },
                     ),
                     SizedBox(height: 5.w),
@@ -226,11 +226,11 @@ class _ResetScreenState extends ConsumerState<ResetScreen> {
   }
 
   Future<void> _resetPassword() async {
-    final result = await ref.read(authControllerProvider.notifier).reset();
+    final result = await ref.read(authControllerProvider.notifier).updatePassword();
 
     if (result['success']) {
       CustomSnackBar.showSuccess(result["message"]);
-      Navigator.pushNamed(context, '/login');
+      Navigator.pop(context);
     } else {
       CustomSnackBar.showError(result["message"]);
     }

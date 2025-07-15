@@ -71,7 +71,7 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                         height: 35.h,
                         width: 100.w,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                         ),
                       ),
                       Container(
@@ -107,8 +107,10 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                   ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 2.5.h, vertical: 2.5.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 2.5.h,
+                    vertical: 2.5.h,
+                  ),
                   child: Column(
                     children: [
                       SizedBox(height: 10.w),
@@ -119,6 +121,49 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                         labelText: "OTP",
                         validator: Validators.validateOTP,
                         ref: ref,
+                      ),
+                      SizedBox(height: 5.w),
+                      CustomTextFields.outlinedWithIcon(
+                        controller: authController.newPasswordController,
+                        hintText: "Enter new password",
+                        labelText: "New Password",
+                        validator: Validators.validatePassword,
+                        ref: ref,
+                        obscureText: !authState.newPasswordVisible,
+                        isPrefix: false,
+                        icon: Icon(
+                          authState.newPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: isDarkMode
+                              ? AppColors.lightText
+                              : AppColors.darkText,
+                        ),
+                        onIconPressed: () {
+                          authController.toggleNewPasswordVisibility();
+                        },
+                      ),
+                      SizedBox(height: 2.5.h),
+                      CustomTextFields.outlinedWithIcon(
+                        controller: authController.confirmPasswordController,
+                        hintText: "Confirm new password",
+                        labelText: "Confirm Password",
+                        validator: (value) => Validators.validateConfirmPassword(
+                            value, authController.newPasswordController.text),
+                        ref: ref,
+                        obscureText: !authState.confirmPasswordVisible,
+                        isPrefix: false,
+                        icon: Icon(
+                          authState.confirmPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: isDarkMode
+                              ? AppColors.lightText
+                              : AppColors.darkText,
+                        ),
+                        onIconPressed: () {
+                          authController.toggleConfirmPasswordVisibility();
+                        },
                       ),
                       SizedBox(
                         height: 4.h,
@@ -165,125 +210,6 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                     ],
                   ),
                 ),
-                Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Image Section
-                      Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(16)),
-                            child: Image.network(
-                              Paths.homeFootballPlayerIcon,
-                              // Replace with your image URL
-                              height: 150,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 10,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: Icon(
-                                Icons.favorite_border,
-                                color: Color(0xFF19C965),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Details Section
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Tiny home in Raxlingen',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF19C965),
-                              ),
-                            ),
-                            SizedBox(height: 6),
-                            Text(
-                              '4 guests • 2 bedrooms • 2 beds • 1 bathroom',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade600,
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                      size: 16,
-                                    ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      '4.96',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      '(217)',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: '€117 ',
-                                        style: TextStyle(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: '€91 ',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: 'night • €273 total',
-                                        style: TextStyle(
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
@@ -300,12 +226,12 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
 
   Future<void> _verifyOTP() async {
     // Check if the widget is still mounted before triggering UI updates
-    final result = await ref.read(authControllerProvider.notifier).verify();
+    final result = await ref.read(authControllerProvider.notifier).reset();
 
     if (mounted) {
       if (result['success']) {
         CustomSnackBar.showSuccess(result["message"]);
-        Navigator.pushReplacementNamed(context, '/reset');
+        Navigator.pushReplacementNamed(context, '/login');
       } else {
         CustomSnackBar.showError(result["message"]);
       }

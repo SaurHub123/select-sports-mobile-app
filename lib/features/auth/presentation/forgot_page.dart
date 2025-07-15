@@ -27,147 +27,150 @@ class _ForgotScreenState extends ConsumerState<ForgotScreen> {
 
     return Scaffold(
       body: SizedBox(
-          height: 100.h,
-          width: 100.w,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 35.h,
-                      width: 100.w,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            AppColors.darkestBackground,
-                            AppColors.darkMediumBackground,
-                            AppColors.darkLightBackground,
+        height: 100.h,
+        width: 100.w,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 35.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        AppColors.darkestBackground,
+                        AppColors.darkMediumBackground,
+                        AppColors.darkLightBackground,
+                      ],
+                    ),
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.hardEdge,
+                    children: [
+                      Positioned(
+                        top: 0.h,
+                        left: 20.w,
+                        child: SizedBox(
+                          height: 35.h,
+                          width: 100.w,
+                          child: Image(
+                            image: AssetImage(
+                              Paths.loginFootballImage,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 35.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.4),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 5.h, horizontal: 5.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Forgot your",
+                              style: AppTextStyles.largeHeading.copyWith(
+                                color: AppColors.lightText,
+                              ),
+                            ),
+                            Text(
+                              "Password",
+                              style: AppTextStyles.largeHeading.copyWith(
+                                color: AppColors.lightText,
+                              ),
+                            ),
+                            SizedBox(height: 2.5.w),
+                            Text(
+                              "Enter your email to reset password",
+                              style: AppTextStyles.body.copyWith(
+                                color: AppColors.lightText,
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      child: Stack(
-                        clipBehavior: Clip.hardEdge,
-                        children: [
-                          Positioned(
-                            top: 0.h,
-                            left: 20.w,
-                            child: SizedBox(
-                              height: 35.h,
-                              width: 100.w,
-                              child: Image(
-                                image: AssetImage(
-                                  Paths.loginFootballImage,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 35.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: 0.4),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5.h, horizontal: 5.w),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Forgot your",
-                                  style: AppTextStyles.largeHeading.copyWith(
-                                    color: AppColors.lightText,
-                                  ),
-                                ),
-                                Text(
-                                  "Password",
-                                  style: AppTextStyles.largeHeading.copyWith(
-                                    color: AppColors.lightText,
-                                  ),
-                                ),
-                                SizedBox(height: 2.5.w),
-                                Text(
-                                  "Enter your email to reset password",
-                                  style: AppTextStyles.body.copyWith(
-                                    color: AppColors.lightText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 2.5.h,
+                    vertical: 2.5.h,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.w),
+                      CustomTextFields.outlined(
+                        controller: authController.emailController,
+                        hintText: "johndoe@gmail.com",
+                        labelText: "Email",
+                        validator: Validators.validateEmail,
+                        ref: ref,
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 2.5.h,
-                        vertical: 2.5.h,
+                      SizedBox(
+                        height: 2.5.h,
                       ),
-                      child: Column(
+                      CustomButtons.fullWidthFilledButton(
+                        ref: ref,
+                        buttonText: "Forgot",
+                        onClick: () {
+                          _submitForm();
+                        },
+                      ),
+                      SizedBox(height: 5.w),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 10.w),
-                          CustomTextFields.outlined(
-                            controller: authController.emailController,
-                            hintText: "johndoe@gmail.com",
-                            labelText: "Email",
-                            validator: Validators.validateEmail,
-                            ref: ref,
+                          Text(
+                            "Don't Have an account? ",
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.body.copyWith(
+                              color: isDarkMode
+                                  ? AppColors.lightText
+                                  : AppColors.darkText,
+                            ),
                           ),
-                          SizedBox(
-                            height: 2.5.h,
-                          ),
-                          CustomButtons.fullWidthFilledButton(
-                            ref: ref,
-                            buttonText: "Forgot",
-                            onClick: () {
-                              _submitForm();
+                          InkWell(
+                            overlayColor:
+                                WidgetStatePropertyAll(Colors.transparent),
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/signup');
                             },
-                          ),
-                          SizedBox(height: 5.w),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't Have an account? ",
-                                textAlign: TextAlign.center,
-                                style: AppTextStyles.body.copyWith(
-                                  color: isDarkMode
-                                      ? AppColors.lightText
-                                      : AppColors.darkText,
-                                ),
+                            child: Text(
+                              " Create here.",
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.body.copyWith(
+                                color: isDarkMode
+                                    ? AppColors.lightGreenColor
+                                    : AppColors.darkGreenColor,
+                                fontWeight: FontWeight.bold,
                               ),
-                              InkWell(
-                                overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                                onTap: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, '/signup');
-                                },
-                                child: Text(
-                                  " Create here.",
-                                  textAlign: TextAlign.center,
-                                  style: AppTextStyles.body.copyWith(
-                                    color: isDarkMode
-                                        ? AppColors.lightGreenColor
-                                        : AppColors.darkGreenColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                )),
-          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -184,7 +187,7 @@ class _ForgotScreenState extends ConsumerState<ForgotScreen> {
     if (mounted) {
       if (result['success']) {
         CustomSnackBar.showSuccess(result["message"]);
-        Navigator.pushReplacementNamed(context, '/reset');
+        Navigator.pushReplacementNamed(context, '/verifyOTP');
       } else {
         CustomSnackBar.showError(result["message"]);
       }
