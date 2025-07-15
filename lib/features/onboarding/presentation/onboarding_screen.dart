@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/models/onboarding_model.dart';
 import 'package:select_sports/features/auth/presentation/login_page.dart';
@@ -12,7 +13,8 @@ class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _OnboardingScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
@@ -63,18 +65,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                           children: [
                             Text(
                               tab.title,
-                              style: const TextStyle(
-                                fontSize: 27.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(
+                                  fontSize: 27.0,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      isDarkMode ? Colors.white : Colors.black),
                             ),
                             const SizedBox(height: 50),
                             Text(
                               tab.subtitle,
-                              style: const TextStyle(
-                                fontSize: 17.0,
-                                color: Colors.white70,
-                              ),
+                              style: TextStyle(
+                                  fontSize: 17.sp,
+                                  color:
+                                      isDarkMode ? Colors.white : Colors.black),
                               textAlign: TextAlign.center,
                             )
                           ],
@@ -114,8 +117,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             );
           }
         },
-        backgroundColor: Colors.transparent,
-        child: const Icon(Icons.chevron_right, color: Colors.white),
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        child: Icon(Icons.chevron_right,
+            color: isDarkMode ? Colors.white : Colors.black),
       ),
     );
   }

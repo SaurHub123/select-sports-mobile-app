@@ -37,9 +37,15 @@ Future<void> main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
   await SharedPreferencesHelper.init();
 
+  final platformBrightness =
+      WidgetsBinding.instance.platformDispatcher.platformBrightness;
+
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      overrides: [
+        themeProvider.overrideWith((ref) => ThemeNotifier(platformBrightness)),
+      ],
+      child: const MyApp(),
     ),
   );
 }
@@ -116,7 +122,7 @@ class MyApp extends ConsumerWidget {
             '/delete_account': (context) => DeleteAccountScreen(),
             '/update_mobile': (context) => UpdateMobileScreen(),
             '/rewards': (context) => RewardsScreen(),
-            '/update_profile':(context) => UpdateProfileScreen(),
+            '/update_profile': (context) => UpdateProfileScreen(),
           },
         ),
       );
