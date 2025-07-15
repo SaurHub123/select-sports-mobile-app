@@ -174,6 +174,7 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                         onClick: () {
                           _submitForm();
                         },
+                        loading: authState.isVerifyProcessRunning,
                       ),
                       SizedBox(height: 5.w),
                       Row(
@@ -226,10 +227,14 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
 
   Future<void> _verifyOTP() async {
     // Check if the widget is still mounted before triggering UI updates
-    final result = await ref.read(authControllerProvider.notifier).reset();
+    final authController = ref.read(authControllerProvider.notifier);
+    final result = await authController.reset();
 
     if (mounted) {
       if (result['success']) {
+        authController.otpController.clear();
+        authController.newPasswordController.clear();
+        authController.confirmPasswordController.clear();
         CustomSnackBar.showSuccess(result["message"]);
         Navigator.pushReplacementNamed(context, '/login');
       } else {

@@ -250,7 +250,7 @@ class _PlaygroundDetailsScreenState
                                         SharedPreferencesKeys.userId) &&
                                 e.status == "CONFIRMED");
 
-                        print(userBooking.status);
+
                         if (userBooking.status == "CANCELLED") {
                           return CustomSnackBar.showError(
                               "Your Booking is Already Cancelled..!");
@@ -267,9 +267,12 @@ class _PlaygroundDetailsScreenState
                             "Booking Cancellation failed. Please try again..!",
                           );
                         }
+
+                        Navigator.pop(context);
                       },
                       customDarkColor: AppColors.redColor,
                       customLightColor: AppColors.redColor,
+                      loading: homeState.isCancelBookingProcessRunning,
                     ),
                   ),
                 SizedBox(height: 25),

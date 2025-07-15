@@ -285,7 +285,7 @@ class Transaction {
   final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final Razorpay razorpay;
+  final Razorpay? razorpay;
 
   Transaction({
     required this.id,
@@ -296,7 +296,7 @@ class Transaction {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
-    required this.razorpay,
+    this.razorpay,
   });
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
@@ -308,7 +308,7 @@ class Transaction {
         status: json["status"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        razorpay: Razorpay.fromJson(json["razorpay"]),
+        razorpay: json["razorpay"] != null ? Razorpay.fromJson(json["razorpay"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -320,7 +320,7 @@ class Transaction {
         "status": status,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
-        "razorpay": razorpay.toJson(),
+        "razorpay": razorpay?.toJson(),
       };
 }
 

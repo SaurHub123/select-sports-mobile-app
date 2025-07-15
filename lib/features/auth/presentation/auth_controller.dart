@@ -15,6 +15,8 @@ class AuthState {
   final bool isLoginProcessRunning;
   final bool isSignUpProcessRunning;
   final bool isDobPickerOpen;
+  final bool isForgotProcessRunning;
+  final bool isVerifyProcessRunning;
 
   AuthState({
     required this.passwordVisible,
@@ -24,6 +26,8 @@ class AuthState {
     this.isLoginProcessRunning = false,
     this.isSignUpProcessRunning = false,
     this.isDobPickerOpen = false,
+    this.isForgotProcessRunning = false,
+    this.isVerifyProcessRunning = false,
   });
 
   // CopyWith method for immutability
@@ -35,6 +39,8 @@ class AuthState {
     bool? isLoginProcessRunning,
     bool? isSignUpProcessRunning,
     bool? isDobPickerOpen,
+    bool? isForgotProcessRunning,
+    bool? isVerifyProcessRunning,
     String? gender,
   }) {
     return AuthState(
@@ -47,6 +53,8 @@ class AuthState {
       isSignUpProcessRunning:
           isSignUpProcessRunning ?? this.isSignUpProcessRunning,
       isDobPickerOpen: isDobPickerOpen ?? this.isDobPickerOpen,
+      isForgotProcessRunning: isForgotProcessRunning ?? this.isForgotProcessRunning,
+      isVerifyProcessRunning: isVerifyProcessRunning ?? this.isVerifyProcessRunning,
       gender: gender ?? this.gender,
     );
   }
@@ -77,6 +85,8 @@ class AuthController extends StateNotifier<AuthState> {
             confirmPasswordVisible: false,
             isLoginProcessRunning: false,
             isSignUpProcessRunning: false,
+            isForgotProcessRunning: false,
+            isVerifyProcessRunning: false,
             gender: CommonAppOptions.genders[0],
           ),
         );
@@ -175,8 +185,14 @@ class AuthController extends StateNotifier<AuthState> {
     state.copyWith(gender: CommonAppOptions.genders[0]);
   }
 
-  Future<Map<String, dynamic>> forgot() {
-    return authRepository.forgot(emailController.text.trim());
+  Future<Map<String, dynamic>> forgot() async {
+    try {
+      state = state.copyWith(isForgotProcessRunning: true);
+      final response = await authRepository.forgot(emailController.text.trim());
+      return response;
+    } finally {
+      state = state.copyWith(isForgotProcessRunning: false);
+    }
   }
 
   Future<Map<String, dynamic>> verify() {
@@ -184,9 +200,15 @@ class AuthController extends StateNotifier<AuthState> {
         emailController.text.trim(), otpController.text.trim());
   }
 
-  Future<Map<String, dynamic>> reset() {
-    return authRepository.reset(emailController.text.trim(),
+  Future<Map<String, dynamic>> reset() async {
+    try {
+      state = state.copyWith(isVerifyProcessRunning: true);
+      final response = await authRepository.reset(emailController.text.trim(),
         otpController.text.trim(), newPasswordController.text.trim());
+      return response;
+    } finally {
+      state = state.copyWith(isVerifyProcessRunning: false);
+    }
   }
 
   Future<Map<String, dynamic>> updatePassword() {

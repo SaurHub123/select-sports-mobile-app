@@ -146,6 +146,14 @@ void paymentBottomSheet(
                   var a = await homeController.initiatePayment(slotId, true);
                   print(a);
 
+                  if (a == null) {
+                    Navigator.pushReplacement(
+                      ref.read(navigatorKeyProvider).currentContext!,
+                      MaterialPageRoute(builder: (context) => BookingsScreen()),
+                    );
+                    return;
+                  }
+
                   final razorpayController =
                       ref.read(razorpayControllerProvider);
                   razorpayController.openCheckout(a, slotId, true);

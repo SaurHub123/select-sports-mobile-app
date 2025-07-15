@@ -49,6 +49,7 @@ class HomeController extends StateNotifier<HomeControllerState> {
 
   Future<int> cancelBooking(String id) async {
     try {
+      state = state.copyWith(isCancelBookingProcessRunning: true);
       await homeRepository.cancelBooking(id);
       return 1;
     } catch (err, stack) {
@@ -58,6 +59,8 @@ class HomeController extends StateNotifier<HomeControllerState> {
         stackTrace: stack,
       );
       return 0;
+    } finally {
+      state = state.copyWith(isCancelBookingProcessRunning: false);
     }
   }
 
@@ -83,12 +86,14 @@ class HomeControllerState {
   final int previousImage;
   final Slot? slotDetail;
   final int selectedPaymentMode;
+  final bool isCancelBookingProcessRunning;
 
   HomeControllerState({
     this.currentImage = 0,
     this.previousImage = 0,
     this.selectedPaymentMode = 0,
     this.slotDetail,
+    this.isCancelBookingProcessRunning = false,
   });
 
   // CopyWith method for immutability
@@ -98,12 +103,14 @@ class HomeControllerState {
     int? selectedPaymentMode,
     Slot? slotDetail,
     BookingCancellation? cancelbooking,
+    bool? isCancelBookingProcessRunning,
   }) {
     return HomeControllerState(
       currentImage: currentImage ?? this.currentImage,
       previousImage: previousImage ?? this.previousImage,
       selectedPaymentMode: selectedPaymentMode ?? this.selectedPaymentMode,
       slotDetail: slotDetail,
+      isCancelBookingProcessRunning: isCancelBookingProcessRunning ?? this.isCancelBookingProcessRunning,
     );
   }
 }

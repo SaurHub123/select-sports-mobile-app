@@ -23,6 +23,7 @@ class _ForgotScreenState extends ConsumerState<ForgotScreen> {
   @override
   Widget build(BuildContext context) {
     final authController = ref.read(authControllerProvider.notifier);
+    final authState = ref.watch(authControllerProvider);
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return Scaffold(
@@ -129,6 +130,7 @@ class _ForgotScreenState extends ConsumerState<ForgotScreen> {
                         onClick: () {
                           _submitForm();
                         },
+                        loading: authState.isForgotProcessRunning,
                       ),
                       SizedBox(height: 5.w),
                       Row(

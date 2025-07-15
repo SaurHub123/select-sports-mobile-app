@@ -240,29 +240,32 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
                         FadeInDown(
                           duration: Duration(milliseconds: 500),
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Transactions',
-                                  style: TextStyle(
-                                      color: isDarkMode
-                                          ? AppColors.lightestGreyColor
-                                          : Colors.grey.shade800,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('₹ ${walletDetail.balance}',
-                                    style: TextStyle(
-                                      color: isDarkMode
-                                          ? AppColors.lightText
-                                          : Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                    )),
-                              ]),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Transactions',
+                                style: TextStyle(
+                                    color: isDarkMode
+                                        ? AppColors.lightestGreyColor
+                                        : Colors.grey.shade800,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              // Text(
+                              //   '₹ ${walletDetail.balance}',
+                              //   style: TextStyle(
+                              //     color: isDarkMode
+                              //         ? AppColors.lightText
+                              //         : Colors.black,
+                              //     fontSize: 16,
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
+                            ],
+                          ),
                         ),
                         Expanded(
                           child: ListView.builder(
@@ -288,11 +291,11 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
                                     children: [
                                       Row(
                                         children: [
-                                          Image.network(
+                                          Image.asset(
                                             transactionDetail[index].method ==
                                                     "RAZORPAY"
-                                                ? "https://media.tradly.app/images/marketplace/34521/razor_pay_icon-ICtywSbN.png"
-                                                : "https://static-00.iconduck.com/assets.00/wallet-icon-1964x2048-g8f5z6u3.png",
+                                                ? "assets/images/razorpay.png"
+                                                : "assets/images/wallet.jpg",
                                             width: 50,
                                             height: 50,
                                           ),
@@ -331,9 +334,20 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
                                         ],
                                       ),
                                       Text(
-                                        transactionDetail[index]
-                                            .amount
-                                            .toString(),
+                                        (transactionDetail[index].method !=
+                                                        "WALLET" ||
+                                                    (transactionDetail[index]
+                                                                .method ==
+                                                            "WALLET" &&
+                                                        transactionDetail[index]
+                                                                .walletTxn!
+                                                                .transactionType !=
+                                                            "CREDIT")
+                                                ? "-"
+                                                : "+") +
+                                            transactionDetail[index]
+                                                .amount
+                                                .toString(),
                                         style: AppTextStyles.body.copyWith(
                                           color: transactionDetail[index]
                                                           .method !=

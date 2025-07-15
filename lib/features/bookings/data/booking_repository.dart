@@ -45,6 +45,7 @@ class BookingRepository {
 
       if (response.statusCode == 200) {
         var bookingsData = response.data['data'];
+        print(bookingsData);
         try {
           return BookingDetail.fromJson(bookingsData);
         } catch (err, stack) {
