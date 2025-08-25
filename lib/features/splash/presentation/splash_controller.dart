@@ -41,7 +41,7 @@ class SplashController {
       // Navigate to home screen
       if (context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => MainScreen()),
+          MaterialPageRoute(builder: (context) => OnboardingScreen()),
           (route) => false,
         );
       }

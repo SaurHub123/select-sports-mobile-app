@@ -13,6 +13,7 @@ import 'package:select_sports/core/widgets/frosted_glass.dart';
 import 'package:select_sports/features/home/presentation/home_controller.dart';
 import 'package:select_sports/features/home/presentation/playground_details_screen.dart';
 import 'package:select_sports/providers/theme_provider.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import '../../main/presentation/main_controller.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -77,9 +78,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               color: isDarkMode ? AppColors.lightText : AppColors.darkText,
             ),
           ),
-          SizedBox(height: 2.5.w),
+          SizedBox(height: ref.watch(isTabletProvider) ? 1.w : 2.5.w),
           SizedBox(
-            height: 340,
+            height: 35.h,
             width: 100.w,
             child: FutureBuilder<List<Venue>>(
                 future: _venuesFuture,
@@ -131,8 +132,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 );
                               },
                               child: Container(
-                                height: 300,
-                                width: 75.w,
+                                height:
+                                    ref.watch(isTabletProvider) ? 32.h : 300,
+                                width:
+                                    ref.watch(isTabletProvider) ? 32.h : 75.w,
                                 decoration: BoxDecoration(
                                   color: isDarkMode
                                       ? AppColors.darkScaffoldBackground
@@ -154,7 +157,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height: 200,
+                                      height: ref.watch(isTabletProvider) ? 17.5.h : 200,
                                       width: 100.w,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
@@ -209,7 +212,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                             //     ],
                                             //   ),
                                             // ),
-                                            SizedBox(height: 2.5.w),
+                                            SizedBox(height: ref.watch(isTabletProvider) ? 1.w : 2.5.w),
                                             Text(
                                               venue.name,
                                               textAlign: TextAlign.start,
@@ -222,7 +225,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                     : Color(0xFF020202),
                                               ),
                                             ),
-                                            SizedBox(height: 2.5.w),
+                                            SizedBox(height: ref.watch(isTabletProvider) ? 1.w : 2.5.w),
                                             Row(
                                               children: [
                                                 Icon(
@@ -233,7 +236,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                       : AppColors
                                                           .mediumGreyColor,
                                                 ),
-                                                SizedBox(width: 2.5.w),
+                                                SizedBox(width: ref.watch(isTabletProvider) ? 1.5.w : 2.5.w),
                                                 Expanded(
                                                   child: Text(
                                                     "${venueAddress.street}, ${venueAddress.city}, ${venueAddress.state}, ${venueAddress.postalCode}, ${venueAddress.country}",
@@ -338,8 +341,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       Row(
                         children: [
                           Container(
-                            height: 45,
-                            width: 45,
+                            height: 5.h,
+                            width: 5.h,
                             padding: EdgeInsets.all(7.5),
                             decoration: BoxDecoration(
                               color: AppColors.darkGreenColor,
@@ -347,6 +350,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ),
                             child: SvgPicture.asset(
                               Paths.homeFootballPlayerIcon,
+                              height: 2.5.h,
+                              width: 2.5.h,
                             ),
                           ),
                           SizedBox(width: 5.w),
@@ -367,7 +372,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       Text(
                         SharedPreferencesHelper.get(
-                            SharedPreferencesKeys.name) ??
+                                SharedPreferencesKeys.name) ??
                             "---",
                         style: AppTextStyles.largeHeading.copyWith(
                           color: AppColors.lightText,
@@ -378,6 +383,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         'Welcome to your Playground.!',
                         style: AppTextStyles.body.copyWith(
                           color: AppColors.lightText,
+                          fontSize: 13.sp,
                         ),
                       ),
                     ],
@@ -425,12 +431,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Column(
                 children: [
                   Container(
-                    height: 110,
-                    width: 110,
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    height: 12.h,
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 7.5.w, vertical: 2.5.w),
                     child: SvgPicture.asset(
                       Paths.homeJoinGameImage,
                       color: AppColors.lightText,
+                      height: 5.h,
+                      width: 5.h,
                     ),
                   ),
                   Text(
@@ -460,9 +469,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Column(
                 children: [
                   Container(
-                    height: 110,
-                    width: 110,
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    height: 12.h,
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 7.5.w, vertical: 2.5.w),
                     child: SvgPicture.asset(
                       Paths.homeBecomeMemberImage,
                       color: Colors.white,

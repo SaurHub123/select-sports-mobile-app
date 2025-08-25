@@ -45,12 +45,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           : Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Lottie.asset(
+            fit: BoxFit.fill,
             isDarkMode
                 ? Paths.lottieSplashDarkLogoJson
                 : Paths.lottieSplashLogoJson,
             animate: true,
+          ),
+          Container(
+            width: 100.w,
+            color: Colors.transparent,
+            height: 50,
           ),
           Text(
             "Select Sports",

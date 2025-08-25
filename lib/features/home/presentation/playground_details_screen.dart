@@ -13,6 +13,7 @@ import 'package:select_sports/core/widgets/common_bottom_sheet.dart';
 import 'package:select_sports/core/widgets/custom_buttons.dart';
 import 'package:select_sports/core/widgets/custom_snackbar.dart';
 import 'package:select_sports/features/home/presentation/components/payment_bottom_sheet.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:select_sports/providers/theme_provider.dart';
 import 'package:select_sports/utils/common_functions.dart';
 import 'home_controller.dart';
@@ -316,7 +317,7 @@ class _PlaygroundDetailsScreenState
     HomeControllerState homeState,
   ) {
     return Container(
-      height: 75,
+      height: ref.watch(isTabletProvider) ? 10.h : 75,
       width: 100.w,
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(),

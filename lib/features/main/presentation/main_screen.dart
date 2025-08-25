@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/widgets/custom_snackbar.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:toastification/toastification.dart';
 import 'main_controller.dart';
 
@@ -98,7 +99,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           ref.read(mainControllerProvider.notifier).updateIndex(index);
         },
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 3.5.w),
+          padding: EdgeInsets.symmetric(vertical: ref.watch(isTabletProvider) ? 1.5.w: 3.5.w),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isSelected ? AppColors.lightGreenColor : Colors.transparent,
@@ -106,7 +107,11 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, color: isSelected ? AppColors.darkText : Colors.grey),
+              Icon(
+                icon,
+                color: isSelected ? AppColors.darkText : Colors.grey,
+                size: ref.watch(isTabletProvider) ? 17.sp : 18.sp,
+              ),
             ],
           ),
         ),

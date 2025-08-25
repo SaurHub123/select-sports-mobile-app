@@ -29,6 +29,7 @@ import 'package:select_sports/features/wallet/presentation/add_money_screen.dart
 import 'package:select_sports/features/wallet/presentation/wallet_screen.dart';
 import 'package:select_sports/providers/navigator_key.dart';
 import 'package:select_sports/providers/theme_provider.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:toastification/toastification.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -60,7 +61,8 @@ class MyApp extends ConsumerWidget {
     final navigatorKey = ref.read(navigatorKeyProvider);
 
     return ResponsiveSizer(builder: (context, orientation, screenType) {
-      return ToastificationWrapper(
+      return ResponsiveWrapper(
+        child: ToastificationWrapper(
         child: MaterialApp(
           navigatorKey: navigatorKey,
           title: 'Select Sports',
@@ -125,7 +127,8 @@ class MyApp extends ConsumerWidget {
             '/update_profile': (context) => UpdateProfileScreen(),
           },
         ),
-      );
+      ),
+    );
     });
   }
 }

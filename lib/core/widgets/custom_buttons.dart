@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 
 import '../../providers/theme_provider.dart';
 
@@ -26,7 +27,7 @@ class CustomButtons {
         width: 100.w,
         padding: EdgeInsets.symmetric(
           horizontal: 5.w,
-          vertical: 3.5.w,
+          vertical: ref.watch(isTabletProvider) ? 2.w : 3.5.w,
         ),
         margin: EdgeInsets.symmetric(
           vertical: 3.5.w,

@@ -11,6 +11,7 @@ import 'package:select_sports/core/widgets/visibility_widgets.dart';
 import 'package:select_sports/features/auth/presentation/auth_controller.dart';
 import 'package:select_sports/features/auth/presentation/login_page.dart';
 import 'package:select_sports/features/main/presentation/main_controller.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:select_sports/providers/theme_provider.dart';
 
 class MenusScreen extends ConsumerStatefulWidget {
@@ -125,7 +126,7 @@ class _MenusScreenState extends ConsumerState<MenusScreen> {
                                   fontSize: 15.sp,
                                 ),
                               ),
-                              SizedBox(height: 1.h),
+                              SizedBox(height: ref.watch(isTabletProvider) ? 1.5.h : 1.h),
                               _buildOptionTile(
                                 isDarkMode,
                                 Paths.menuWalletIcon,
@@ -182,7 +183,7 @@ class _MenusScreenState extends ConsumerState<MenusScreen> {
                                   fontSize: 15.sp,
                                 ),
                               ),
-                              SizedBox(height: 1.h),
+                              SizedBox(height: ref.watch(isTabletProvider) ? 1.5.h : 1.h),
                               _buildOptionTile(
                                 isDarkMode,
                                 Paths.menuManageTeamsIcon,
@@ -213,7 +214,7 @@ class _MenusScreenState extends ConsumerState<MenusScreen> {
                                   fontSize: 15.sp,
                                 ),
                               ),
-                              SizedBox(height: 1.h),
+                              SizedBox(height: ref.watch(isTabletProvider) ? 1.5.h : 1.h),
                               _buildOptionTile(
                                 isDarkMode,
                                 Paths.menuNeedHelpIcon,
@@ -322,7 +323,7 @@ class _MenusScreenState extends ConsumerState<MenusScreen> {
                       ],
                     ),
                   ),
-                  VisibilityWidgets.bottomNavBarVisibleWidget(height: 150),
+                  VisibilityWidgets.bottomNavBarVisibleWidget(height: ref.watch(isTabletProvider) ? 20.h : 150),
                 ],
               ),
               Wire(
@@ -416,7 +417,7 @@ class _MenusScreenState extends ConsumerState<MenusScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 5.w),
+              SizedBox(width: ref.watch(isTabletProvider) ? 2.5.w : 5.w),
               Text(
                 menuTitle,
                 style: AppTextStyles.subheading.copyWith(

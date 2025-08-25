@@ -6,13 +6,15 @@ import 'package:select_sports/core/constants/paths.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/widgets/common_appbar.dart';
 import 'package:select_sports/core/widgets/visibility_widgets.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:select_sports/providers/theme_provider.dart';
 
 class ConnectionsScreen extends ConsumerStatefulWidget {
   const ConnectionsScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ConnectionsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ConnectionsScreenState();
 }
 
 class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> {
@@ -22,7 +24,7 @@ class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> {
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? Colors.transparent: Color(0xFFEBF0EA),
+      backgroundColor: isDarkMode ? Colors.transparent : Color(0xFFEBF0EA),
       body: SizedBox(
         height: 100.h,
         width: 100.w,
@@ -39,14 +41,12 @@ class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> {
             //     "Manage Teams",
             //   ),
             // ),
-            SizedBox(height: 10.h),
+            if (!ref.watch(isTabletProvider)) SizedBox(height: 10.h),
             Lottie.asset(
-              isDarkMode
-                  ? Paths.lottieDarkCodingJson
-                  : Paths.lottieCodingJson,
+              isDarkMode ? Paths.lottieDarkCodingJson : Paths.lottieCodingJson,
               animate: true,
             ),
-            SizedBox(height: 2.5.w),
+            if (!ref.watch(isTabletProvider)) SizedBox(height: 2.5.w),
             Center(
               child: Text(
                 "We are still working on it!",
@@ -71,7 +71,7 @@ class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> {
                   textAlign: TextAlign.center,
                   style: AppTextStyles.body.copyWith(
                     color:
-                    isDarkMode ? AppColors.lightText : AppColors.darkText,
+                        isDarkMode ? AppColors.lightText : AppColors.darkText,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),

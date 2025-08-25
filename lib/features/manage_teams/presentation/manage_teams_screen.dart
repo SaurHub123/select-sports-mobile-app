@@ -6,6 +6,7 @@ import 'package:select_sports/core/constants/paths.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/widgets/common_appbar.dart';
 import 'package:select_sports/core/widgets/visibility_widgets.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:select_sports/providers/theme_provider.dart';
 
 class ManageTeamsScreen extends ConsumerStatefulWidget {
@@ -40,6 +41,7 @@ class _ManageTeamsScreenState extends ConsumerState<ManageTeamsScreen> {
                 "Manage Teams",
               ),
             ),
+            if(!ref.watch(isTabletProvider))
             SizedBox(height: 5.h),
             Lottie.asset(
               isDarkMode
@@ -47,6 +49,7 @@ class _ManageTeamsScreenState extends ConsumerState<ManageTeamsScreen> {
                   : Paths.lottieCodingJson,
               animate: true,
             ),
+            if(!ref.watch(isTabletProvider))
             SizedBox(height: 2.5.w),
             Center(
               child: Text(

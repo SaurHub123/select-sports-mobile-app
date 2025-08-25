@@ -7,6 +7,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:select_sports/core/constants/theme_constants.dart';
 import 'package:select_sports/core/models/onboarding_model.dart';
 import 'package:select_sports/features/auth/presentation/login_page.dart';
+import 'package:select_sports/providers/responsive_provider.dart';
 import 'package:select_sports/providers/theme_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -51,7 +52,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
-              height: 270,
+              height: ref.watch(isTabletProvider) ? 350 : 270,
               child: Column(
                 children: [
                   Flexible(
